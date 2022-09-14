@@ -7,30 +7,22 @@ import ru.netology.page.PurchasePage;
 
 import static com.codeborne.selenide.Selenide.open;
 
-public class PurchaseTest {
-    //Todo 1: проверить записи в БД, также, добавить очистку БД
+public class CreditTest {
 
     @BeforeEach
     void shouldStart() {
         open("http://localhost:8080/");
     }
 
-    //Позитивные сценарии
     @Test
-    void shouldBuyWithValidCard() {
-        //открыть страницу (уже в аннотации BeforeEach
-        //выбрать купить
-        //заполнить поля
-        //выбрать продолжить
-        // сверить появившееся окно
-        //проверить запись в БД
+    void shouldCreditWithValidCard() {
         String[] date = DataHelper.generateDate(30);
         String month = date[1], year = date[2], owner = DataHelper.generateOwner("En"), cvv = "123";
         // Проверка входных данных
         System.out.println("!!!Check enter data!!! month = " + month + "; year = " + year + "; owner = " + owner + "; cvv = " + cvv);
 
         var cardInfo = DataHelper.setValidCard(month, year, owner, cvv);
-        var paymentPage = PurchasePage.selectPaymentWay();
+        var paymentPage = PurchasePage.selectCreditWay();
         paymentPage.cleanAllFields();
 
         paymentPage.enterCardData(cardInfo);
@@ -39,14 +31,14 @@ public class PurchaseTest {
     }
 
     @Test
-    void shouldBuyWithInvalidCard() {
+    void shouldCreditWithInvalidCard() {
         String[] date = DataHelper.generateDate(30);
         String month = date[1], year = date[2], owner = DataHelper.generateOwner("En"), cvv = "123";
         // Проверка входных данных
         System.out.println("!!!Check enter data!!! month = " + month + "; year = " + year + "; owner = " + owner + "; cvv = " + cvv);
 
         var cardInfo = DataHelper.setInvalidCard(month, year, owner, cvv);
-        var paymentPage = PurchasePage.selectPaymentWay();
+        var paymentPage = PurchasePage.selectCreditWay();
         paymentPage.cleanAllFields();
 
         paymentPage.enterCardData(cardInfo);
@@ -54,9 +46,8 @@ public class PurchaseTest {
         paymentPage.checkUnsuccessPay();
     }
 
-    //негативные сценарии
     @Test
-    void shouldBuyWithEmptyCardNumber() {
+    void shouldCreditWithEmptyCardNumber() {
         String[] date = DataHelper.generateDate(30);
         String month = date[1], year = date[2], owner = DataHelper.generateOwner("En"), cvv = "123";
         String emptyCardNumber = "";
@@ -64,7 +55,7 @@ public class PurchaseTest {
         System.out.println("!!!Check enter data!!! month = " + month + "; year = " + year + "; owner = " + owner + "; cvv = " + cvv);
 
         var cardInfo = DataHelper.setCard(emptyCardNumber, month, year, owner, cvv);
-        var paymentPage = PurchasePage.selectPaymentWay();
+        var paymentPage = PurchasePage.selectCreditWay();
         paymentPage.cleanAllFields();
 
         paymentPage.enterCardData(cardInfo);
@@ -73,7 +64,7 @@ public class PurchaseTest {
     }
 
     @Test
-    void shouldBuyWithShortCardNumber() {
+    void shouldCreditWithShortCardNumber() {
         String[] date = DataHelper.generateDate(30);
         String month = date[1], year = date[2], owner = DataHelper.generateOwner("En"), cvv = "123";
         String shortCardNumber = "4444 4444 4444 444";
@@ -81,7 +72,7 @@ public class PurchaseTest {
         System.out.println("!!!Check enter data!!! month = " + month + "; year = " + year + "; owner = " + owner + "; cvv = " + cvv);
 
         var cardInfo = DataHelper.setCard(shortCardNumber, month, year, owner, cvv);
-        var paymentPage = PurchasePage.selectPaymentWay();
+        var paymentPage = PurchasePage.selectCreditWay();
         paymentPage.cleanAllFields();
 
         paymentPage.enterCardData(cardInfo);
@@ -90,7 +81,7 @@ public class PurchaseTest {
     }
 
     @Test
-    void shouldBuyWithNo0CardNumber() {
+    void shouldCreditWithNo0CardNumber() {
         String[] date = DataHelper.generateDate(30);
         String month = date[1], year = date[2], owner = DataHelper.generateOwner("En"), cvv = "123";
         String zeroCardNumber = "0";
@@ -98,7 +89,7 @@ public class PurchaseTest {
         System.out.println("!!!Check enter data!!! month = " + month + "; year = " + year + "; owner = " + owner + "; cvv = " + cvv);
 
         var cardInfo = DataHelper.setCard(zeroCardNumber, month, year, owner, cvv);
-        var paymentPage = PurchasePage.selectPaymentWay();
+        var paymentPage = PurchasePage.selectCreditWay();
         paymentPage.cleanAllFields();
 
         paymentPage.enterCardData(cardInfo);
@@ -107,14 +98,14 @@ public class PurchaseTest {
     }
 
     @Test
-    void shouldBuyWithCardPastMonth() {
+    void shouldCreditWithCardPastMonth() {
         String[] date = DataHelper.generateDate(-30);
         String month = date[1], year = date[2], owner = DataHelper.generateOwner("En"), cvv = "123";
         // Проверка входных данных
         System.out.println("!!!Check enter data!!! month = " + month + "; year = " + year + "; owner = " + owner + "; cvv = " + cvv);
 
         var cardInfo = DataHelper.setValidCard(month, year, owner, cvv);
-        var paymentPage = PurchasePage.selectPaymentWay();
+        var paymentPage = PurchasePage.selectCreditWay();
         paymentPage.cleanAllFields();
 
         paymentPage.enterCardData(cardInfo);
@@ -123,14 +114,14 @@ public class PurchaseTest {
     }
 
     @Test
-    void shouldBuyWithCardNo00Month() {
+    void shouldCreditWithCardNo00Month() {
         String[] date = DataHelper.generateDate(30);
         String month = "00", year = date[2], owner = DataHelper.generateOwner("En"), cvv = "123";
         // Проверка входных данных
         System.out.println("!!!Check enter data!!! month = " + month + "; year = " + year + "; owner = " + owner + "; cvv = " + cvv);
 
         var cardInfo = DataHelper.setValidCard(month, year, owner, cvv);
-        var paymentPage = PurchasePage.selectPaymentWay();
+        var paymentPage = PurchasePage.selectCreditWay();
         paymentPage.cleanAllFields();
 
         paymentPage.enterCardData(cardInfo);
@@ -139,14 +130,14 @@ public class PurchaseTest {
     }
 
     @Test
-    void shouldBuyWithCardNo13Month() {
+    void shouldCreditWithCardNo13Month() {
         String[] date = DataHelper.generateDate(30);
         String month = "13", year = date[2], owner = DataHelper.generateOwner("En"), cvv = "123";
         // Проверка входных данных
         System.out.println("!!!Check enter data!!! month = " + month + "; year = " + year + "; owner = " + owner + "; cvv = " + cvv);
 
         var cardInfo = DataHelper.setValidCard(month, year, owner, cvv);
-        var paymentPage = PurchasePage.selectPaymentWay();
+        var paymentPage = PurchasePage.selectCreditWay();
         paymentPage.cleanAllFields();
 
         paymentPage.enterCardData(cardInfo);
@@ -155,14 +146,14 @@ public class PurchaseTest {
     }
 
     @Test
-    void shouldBuyWithCardEmptyMonth() {
+    void shouldCreditWithCardEmptyMonth() {
         String[] date = DataHelper.generateDate(30);
         String month = "", year = date[2], owner = DataHelper.generateOwner("En"), cvv = "123";
         // Проверка входных данных
         System.out.println("!!!Check enter data!!! month = " + month + "; year = " + year + "; owner = " + owner + "; cvv = " + cvv);
 
         var cardInfo = DataHelper.setValidCard(month, year, owner, cvv);
-        var paymentPage = PurchasePage.selectPaymentWay();
+        var paymentPage = PurchasePage.selectCreditWay();
         paymentPage.cleanAllFields();
 
         paymentPage.enterCardData(cardInfo);
@@ -171,14 +162,14 @@ public class PurchaseTest {
     }
 
     @Test
-    void shouldBuyWithCardShortMonth() {
+    void shouldCreditWithCardShortMonth() {
         String[] date = DataHelper.generateDate(30);
         String month = "3", year = date[2], owner = DataHelper.generateOwner("En"), cvv = "123";
         // Проверка входных данных
         System.out.println("!!!Check enter data!!! month = " + month + "; year = " + year + "; owner = " + owner + "; cvv = " + cvv);
 
         var cardInfo = DataHelper.setValidCard(month, year, owner, cvv);
-        var paymentPage = PurchasePage.selectPaymentWay();
+        var paymentPage = PurchasePage.selectCreditWay();
         paymentPage.cleanAllFields();
 
         paymentPage.enterCardData(cardInfo);
@@ -187,14 +178,14 @@ public class PurchaseTest {
     }
 
     @Test
-    void shouldBuyWithCardEmptyYear() {
+    void shouldCreditWithCardEmptyYear() {
         String[] date = DataHelper.generateDate(30);
         String month = date[1], year = "", owner = DataHelper.generateOwner("En"), cvv = "123";
         // Проверка входных данных
         System.out.println("!!!Check enter data!!! month = " + month + "; year = " + year + "; owner = " + owner + "; cvv = " + cvv);
 
         var cardInfo = DataHelper.setValidCard(month, year, owner, cvv);
-        var paymentPage = PurchasePage.selectPaymentWay();
+        var paymentPage = PurchasePage.selectCreditWay();
         paymentPage.cleanAllFields();
 
         paymentPage.enterCardData(cardInfo);
@@ -203,14 +194,14 @@ public class PurchaseTest {
     }
 
     @Test
-    void shouldBuyWithCardPastYear() {
+    void shouldCreditWithCardPastYear() {
         String[] date = DataHelper.generateDate(-365);
         String month = date[1], year = date[2], owner = DataHelper.generateOwner("En"), cvv = "123";
         // Проверка входных данных
         System.out.println("!!!Check enter data!!! month = " + month + "; year = " + year + "; owner = " + owner + "; cvv = " + cvv);
 
         var cardInfo = DataHelper.setValidCard(month, year, owner, cvv);
-        var paymentPage = PurchasePage.selectPaymentWay();
+        var paymentPage = PurchasePage.selectCreditWay();
         paymentPage.cleanAllFields();
 
         paymentPage.enterCardData(cardInfo);
@@ -219,14 +210,14 @@ public class PurchaseTest {
     }
 
     @Test
-    void shouldBuyWithCardFutureOn10Year() {
+    void shouldCreditWithCardFutureOn10Year() {
         String[] date = DataHelper.generateDate(3650);
         String month = date[1], year = date[2], owner = DataHelper.generateOwner("En"), cvv = "123";
         // Проверка входных данных
         System.out.println("!!!Check enter data!!! month = " + month + "; year = " + year + "; owner = " + owner + "; cvv = " + cvv);
 
         var cardInfo = DataHelper.setValidCard(month, year, owner, cvv);
-        var paymentPage = PurchasePage.selectPaymentWay();
+        var paymentPage = PurchasePage.selectCreditWay();
         paymentPage.cleanAllFields();
 
         paymentPage.enterCardData(cardInfo);
@@ -235,14 +226,14 @@ public class PurchaseTest {
     }
 
     @Test
-    void shouldBuyWithCardEmptyOwner() {
+    void shouldCreditWithCardEmptyOwner() {
         String[] date = DataHelper.generateDate(30);
         String month = date[1], year = date[2], owner = "", cvv = "123";
         // Проверка входных данных
         System.out.println("!!!Check enter data!!! month = " + month + "; year = " + year + "; owner = " + owner + "; cvv = " + cvv);
 
         var cardInfo = DataHelper.setValidCard(month, year, owner, cvv);
-        var paymentPage = PurchasePage.selectPaymentWay();
+        var paymentPage = PurchasePage.selectCreditWay();
         paymentPage.cleanAllFields();
 
         paymentPage.enterCardData(cardInfo);
@@ -251,14 +242,14 @@ public class PurchaseTest {
     }
 
     @Test
-    void shouldBuyWithCardCyrillicOwner() {
+    void shouldCreditWithCardCyrillicOwner() {
         String[] date = DataHelper.generateDate(30);
         String month = date[1], year = date[2], owner = DataHelper.generateOwner("Ru"), cvv = "123";
         // Проверка входных данных
         System.out.println("!!!Check enter data!!! month = " + month + "; year = " + year + "; owner = " + owner + "; cvv = " + cvv);
 
         var cardInfo = DataHelper.setValidCard(month, year, owner, cvv);
-        var paymentPage = PurchasePage.selectPaymentWay();
+        var paymentPage = PurchasePage.selectCreditWay();
         paymentPage.cleanAllFields();
 
         paymentPage.enterCardData(cardInfo);
@@ -267,14 +258,14 @@ public class PurchaseTest {
     }
 
     @Test
-    void shouldBuyWithCardSpecSymbolsOwner() {
+    void shouldCreditWithCardSpecSymbolsOwner() {
         String[] date = DataHelper.generateDate(30);
         String month = date[1], year = date[2], owner = "!\"№;?\"%", cvv = "123";
         // Проверка входных данных
         System.out.println("!!!Check enter data!!! month = " + month + "; year = " + year + "; owner = " + owner + "; cvv = " + cvv);
 
         var cardInfo = DataHelper.setValidCard(month, year, owner, cvv);
-        var paymentPage = PurchasePage.selectPaymentWay();
+        var paymentPage = PurchasePage.selectCreditWay();
         paymentPage.cleanAllFields();
 
         paymentPage.enterCardData(cardInfo);
@@ -283,14 +274,14 @@ public class PurchaseTest {
     }
 
     @Test
-    void shouldBuyWithCardNumbersOwner() {
+    void shouldCreditWithCardNumbersOwner() {
         String[] date = DataHelper.generateDate(30);
         String month = date[1], year = date[2], owner = "1234567890", cvv = "123";
         // Проверка входных данных
         System.out.println("!!!Check enter data!!! month = " + month + "; year = " + year + "; owner = " + owner + "; cvv = " + cvv);
 
         var cardInfo = DataHelper.setValidCard(month, year, owner, cvv);
-        var paymentPage = PurchasePage.selectPaymentWay();
+        var paymentPage = PurchasePage.selectCreditWay();
         paymentPage.cleanAllFields();
 
         paymentPage.enterCardData(cardInfo);
@@ -299,14 +290,14 @@ public class PurchaseTest {
     }
 
     @Test
-    void shouldBuyWithCardNo0Owner() {
+    void shouldCreditWithCardNo0Owner() {
         String[] date = DataHelper.generateDate(30);
         String month = date[1], year = date[2], owner = "0", cvv = "123";
         // Проверка входных данных
         System.out.println("!!!Check enter data!!! month = " + month + "; year = " + year + "; owner = " + owner + "; cvv = " + cvv);
 
         var cardInfo = DataHelper.setValidCard(month, year, owner, cvv);
-        var paymentPage = PurchasePage.selectPaymentWay();
+        var paymentPage = PurchasePage.selectCreditWay();
         paymentPage.cleanAllFields();
 
         paymentPage.enterCardData(cardInfo);
@@ -315,14 +306,14 @@ public class PurchaseTest {
     }
 
     @Test
-    void shouldBuyWithCardEmptyCVV() {
+    void shouldCreditWithCardEmptyCVV() {
         String[] date = DataHelper.generateDate(30);
         String month = date[1], year = date[2], owner = DataHelper.generateOwner("En"), cvv = "";
         // Проверка входных данных
         System.out.println("!!!Check enter data!!! month = " + month + "; year = " + year + "; owner = " + owner + "; cvv = " + cvv);
 
         var cardInfo = DataHelper.setValidCard(month, year, owner, cvv);
-        var paymentPage = PurchasePage.selectPaymentWay();
+        var paymentPage = PurchasePage.selectCreditWay();
         paymentPage.cleanAllFields();
 
         paymentPage.enterCardData(cardInfo);
@@ -331,14 +322,14 @@ public class PurchaseTest {
     }
 
     @Test
-    void shouldBuyWithCardOneNumberCVV() {
+    void shouldCreditWithCardOneNumberCVV() {
         String[] date = DataHelper.generateDate(30);
         String month = date[1], year = date[2], owner = DataHelper.generateOwner("En"), cvv = "1";
         // Проверка входных данных
         System.out.println("!!!Check enter data!!! month = " + month + "; year = " + year + "; owner = " + owner + "; cvv = " + cvv);
 
         var cardInfo = DataHelper.setValidCard(month, year, owner, cvv);
-        var paymentPage = PurchasePage.selectPaymentWay();
+        var paymentPage = PurchasePage.selectCreditWay();
         paymentPage.cleanAllFields();
 
         paymentPage.enterCardData(cardInfo);
@@ -347,14 +338,14 @@ public class PurchaseTest {
     }
 
     @Test
-    void shouldBuyWithCardNo0CVV() {
+    void shouldCreditWithCardNo0CVV() {
         String[] date = DataHelper.generateDate(30);
         String month = date[1], year = date[2], owner = DataHelper.generateOwner("En"), cvv = "0";
         // Проверка входных данных
         System.out.println("!!!Check enter data!!! month = " + month + "; year = " + year + "; owner = " + owner + "; cvv = " + cvv);
 
         var cardInfo = DataHelper.setValidCard(month, year, owner, cvv);
-        var paymentPage = PurchasePage.selectPaymentWay();
+        var paymentPage = PurchasePage.selectCreditWay();
         paymentPage.cleanAllFields();
 
         paymentPage.enterCardData(cardInfo);
@@ -363,14 +354,14 @@ public class PurchaseTest {
     }
 
     @Test
-    void shouldBuyWithCardTwoNumberCVV() {
+    void shouldCreditWithCardTwoNumberCVV() {
         String[] date = DataHelper.generateDate(30);
         String month = date[1], year = date[2], owner = DataHelper.generateOwner("En"), cvv = "12";
         // Проверка входных данных
         System.out.println("!!!Check enter data!!! month = " + month + "; year = " + year + "; owner = " + owner + "; cvv = " + cvv);
 
         var cardInfo = DataHelper.setValidCard(month, year, owner, cvv);
-        var paymentPage = PurchasePage.selectPaymentWay();
+        var paymentPage = PurchasePage.selectCreditWay();
         paymentPage.cleanAllFields();
 
         paymentPage.enterCardData(cardInfo);

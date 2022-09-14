@@ -9,8 +9,8 @@ import java.util.Locale;
 
 public class DataHelper {
 
-    private static String  testDataValidCardNumber = "4444444444444441";
-    private static String  testDataInvalidCardNumber = "4444444444444442";
+    final private static String testDataValidCardNumber = "4444444444444441";
+    final private static String testDataInvalidCardNumber = "4444444444444442";
 
     //Todo: хранить карты здесь? Или создать отдельный дата-класс
 
@@ -24,14 +24,19 @@ public class DataHelper {
     }
 
     //Todo: зарандомить карту валидную и невалидную, с помощью Faker
+    //создать карту
+    public static CardInfo setCard(String setCardNumber, String setCardMonth, String setCardYear, String setCardOwner, String setCardCVV) {
+        return new CardInfo(setCardNumber, setCardMonth, setCardYear, setCardOwner, setCardCVV);
+    }
+
     //создать валидную карту
-    public static CardInfo generateValidCard(String month, String year, String owner, String cvv) {
-        return new CardInfo(testDataValidCardNumber, month, year, owner, cvv);
+    public static CardInfo setValidCard(String month, String year, String owner, String cvv) {
+        return setCard(testDataValidCardNumber, month, year, owner, cvv);
     }
 
     //создать невалидную карту
-    public static CardInfo generateInvalidCard(String month, String year, String owner, String cvv) {
-        return new CardInfo(testDataInvalidCardNumber, month, year, owner, cvv);
+    public static CardInfo setInvalidCard(String month, String year, String owner, String cvv) {
+        return setCard(testDataInvalidCardNumber, month, year, owner, cvv);
     }
 
     //генерация даты

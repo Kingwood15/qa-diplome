@@ -6,8 +6,8 @@ import static com.codeborne.selenide.Selenide.*;
 
 public class PurchasePage {
 
-    private static SelenideElement buttonBuy = $x("//*[.='Купить']");
-    private static SelenideElement buttonBuyInCredit = $x("//*[.='Купить в кредит']");
+    final private static SelenideElement buttonBuy = $x("//*[.='Купить']");
+    final private static SelenideElement buttonCredit = $x("//*[.='Купить в кредит']");
 
     public static PaymentPage selectPaymentWay() {
         buttonBuy.click();
@@ -16,7 +16,7 @@ public class PurchasePage {
     }
 
     public static PaymentPage selectCreditWay() {
-        buttonBuyInCredit.click();
+        buttonCredit.click();
         PaymentPage.verifyCredit();
         return new PaymentPage();
     }

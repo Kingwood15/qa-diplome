@@ -7,26 +7,30 @@ import ru.netology.data.DataHelper;
 
 import java.time.Duration;
 
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.$x;
+import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.Selectors.byText;
 
 public class PaymentPage {
-    private static SelenideElement headingBye = $x("//*[.='Оплата по карте']");
-    private static SelenideElement headingCredit = $x("//*[.='Кредит по данным карты']");
-    private SelenideElement notificationStatusOk = $(".notification_status_ok .notification__content");
-    private SelenideElement buttonNotificationStatusOkClose = $(".notification_status_ok button");
-    private SelenideElement notificationStatusError = $(".notification_status_error .notification__content");
-    private SelenideElement buttonNotificationStatusErrorClose = $(".notification_status_error button");
-    private static SelenideElement fieldCardNumber = $x("//*[.='Номер карты'] //input");
-    private static SelenideElement fieldCardMonth = $x("//*[.='Месяц'] //input");
-    private static SelenideElement fieldCardYear = $x("//*[.='Год'] //input");
-    private static SelenideElement fieldCardOwner = $x("//*[.='Владелец'] //input");
-    private static SelenideElement fieldCardCVC = $x("//*[.='CVC/CVV'] //input");
-    private static SelenideElement buttonContinue = $(".form-field button");
+    final private static SelenideElement headingBuy = $(byText("Оплата по карте"));
+    final private static SelenideElement headingCredit = $(byText("Кредит по данным карты"));
+    final private SelenideElement notificationStatusOk = $(".notification_status_ok .notification__content");
+    final private SelenideElement buttonCloseNotificationStatusOk = $(".notification_status_ok button");
+    final private SelenideElement notificationStatusError = $(".notification_status_error .notification__content");
+    final private SelenideElement buttonCloseNotificationStatusError = $(".notification_status_error button");
+    final private static SelenideElement fieldCardNumber = $x("//*[.='Номер карты'] //input");
+    final private static SelenideElement fieldCardMonth = $x("//*[.='Месяц'] //input");
+    final private static SelenideElement fieldCardYear = $x("//*[.='Год'] //input");
+    final private static SelenideElement fieldCardOwner = $x("//*[.='Владелец'] //input");
+    final private static SelenideElement fieldCardCVC = $x("//*[.='CVC/CVV'] //input");
+    final private static SelenideElement buttonContinue = $(".form-field button");
+    final private static SelenideElement fieldWrongFormat = $(byText("Неверный формат"));
+    final private static SelenideElement fieldWrongCardDate = $(byText("Неверно указан срок действия карты"));
+    final private static SelenideElement fieldCardDateExpired = $(byText("Истёк срок действия карты"));
+    final private static SelenideElement fieldRequired = $(byText("Поле обязательно для заполнения"));
 
     //проверка видимости нужных форм
     public static void verifyBue() {
-        headingBye.shouldBe(Condition.visible);
+        headingBuy.shouldBe(Condition.visible);
     }
 
     public static void verifyCredit() {
@@ -64,5 +68,21 @@ public class PaymentPage {
         fieldCardOwner.sendKeys(Keys.DELETE);
         fieldCardCVC.sendKeys(Keys.LEFT_CONTROL + "A");
         fieldCardCVC.sendKeys(Keys.DELETE);
+    }
+
+    public void verifyFieldError() {
+        fieldWrongFormat.shouldBe(Condition.visible);
+    }
+
+    public void verifyFieldCardDateError() {
+        fieldWrongCardDate.shouldBe(Condition.visible);
+    }
+
+    public void verifyFieldCardDateExpiredError() {
+        fieldCardDateExpired.shouldBe(Condition.visible);
+    }
+
+    public void verifyFieldCardRequiredField() {
+        fieldRequired.shouldBe(Condition.visible);
     }
 }

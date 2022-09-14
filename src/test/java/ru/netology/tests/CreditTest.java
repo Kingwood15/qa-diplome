@@ -8,6 +8,7 @@ import ru.netology.page.PurchasePage;
 import static com.codeborne.selenide.Selenide.open;
 
 public class CreditTest {
+    //Todo 2: сравнить (order_entity поле credit_id) с таблицей (credit_request_entity поле bank_id)
 
     @BeforeEach
     void shouldStart() {

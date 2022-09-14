@@ -8,7 +8,7 @@ import ru.netology.page.PurchasePage;
 import static com.codeborne.selenide.Selenide.open;
 
 public class PurchaseTest {
-    //Todo 1: проверить записи в БД, также, добавить очистку БД
+    //Todo 1: сравнить (order_entity поле payment_id) с таблицей (payment_entity поле transaction_id)
 
     @BeforeEach
     void shouldStart() {

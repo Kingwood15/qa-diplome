@@ -1,5 +1,7 @@
 package ru.netology.tests;
 
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.netology.data.DataHelper;
@@ -8,11 +10,16 @@ import ru.netology.page.PurchasePage;
 import static com.codeborne.selenide.Selenide.open;
 
 public class PurchaseTest {
-    //Todo 1: сравнить (order_entity поле payment_id) с таблицей (payment_entity поле transaction_id)
-
+    //Todo: привести код в порядок
     @BeforeEach
     void shouldStart() {
+        //DataHelper.clearSUTData();
         open("http://localhost:8080/");
+    }
+
+    @AfterEach
+    void afterCase() {
+        DataHelper.clearSUTData();
     }
 
     //Позитивные сценарии
@@ -36,6 +43,29 @@ public class PurchaseTest {
         paymentPage.enterCardData(cardInfo);
 
         paymentPage.checkSuccessPay();
+
+        String actual = DataHelper.getPaymentIdFromOrderEntity();
+        String expected = DataHelper.getIdFromPaymentEntity();
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    void shouldBuyWithNotRegisteredCard() {
+        String[] date = DataHelper.generateDate(30);
+        String month = date[1], year = date[2], owner = DataHelper.generateOwner("En"), cvv = "123";
+        // Проверка входных данных
+        System.out.println("!!!Check enter data!!! month = " + month + "; year = " + year + "; owner = " + owner + "; cvv = " + cvv);
+
+        var cardInfo = DataHelper.setCard("4444 4444 4444 4444", month, year, owner, cvv);
+        var paymentPage = PurchasePage.selectPaymentWay();
+        paymentPage.cleanAllFields();
+
+        paymentPage.enterCardData(cardInfo);
+
+        paymentPage.checkUnsuccessPay();
+
+        String actual = DataHelper.getPaymentIdFromOrderEntity();
+        Assertions.assertNull(actual);
     }
 
     @Test
@@ -52,6 +82,9 @@ public class PurchaseTest {
         paymentPage.enterCardData(cardInfo);
 
         paymentPage.checkUnsuccessPay();
+
+        String actual = DataHelper.getPaymentIdFromOrderEntity();
+        Assertions.assertNull(actual);
     }
 
     //негативные сценарии
@@ -70,6 +103,9 @@ public class PurchaseTest {
         paymentPage.enterCardData(cardInfo);
 
         paymentPage.verifyFieldError();
+
+        String actual = DataHelper.getPaymentIdFromOrderEntity();
+        Assertions.assertNull(actual);
     }
 
     @Test
@@ -87,6 +123,9 @@ public class PurchaseTest {
         paymentPage.enterCardData(cardInfo);
 
         paymentPage.verifyFieldError();
+
+        String actual = DataHelper.getPaymentIdFromOrderEntity();
+        Assertions.assertNull(actual);
     }
 
     @Test
@@ -104,6 +143,9 @@ public class PurchaseTest {
         paymentPage.enterCardData(cardInfo);
 
         paymentPage.verifyFieldError();
+
+        String actual = DataHelper.getPaymentIdFromOrderEntity();
+        Assertions.assertNull(actual);
     }
 
     @Test
@@ -120,6 +162,9 @@ public class PurchaseTest {
         paymentPage.enterCardData(cardInfo);
 
         paymentPage.verifyFieldCardDateError();
+
+        String actual = DataHelper.getPaymentIdFromOrderEntity();
+        Assertions.assertNull(actual);
     }
 
     @Test
@@ -136,6 +181,9 @@ public class PurchaseTest {
         paymentPage.enterCardData(cardInfo);
 
         paymentPage.verifyFieldCardDateError();
+
+        String actual = DataHelper.getPaymentIdFromOrderEntity();
+        Assertions.assertNull(actual);
     }
 
     @Test
@@ -152,6 +200,9 @@ public class PurchaseTest {
         paymentPage.enterCardData(cardInfo);
 
         paymentPage.verifyFieldCardDateError();
+
+        String actual = DataHelper.getPaymentIdFromOrderEntity();
+        Assertions.assertNull(actual);
     }
 
     @Test
@@ -168,6 +219,9 @@ public class PurchaseTest {
         paymentPage.enterCardData(cardInfo);
 
         paymentPage.verifyFieldError();
+
+        String actual = DataHelper.getPaymentIdFromOrderEntity();
+        Assertions.assertNull(actual);
     }
 
     @Test
@@ -184,6 +238,9 @@ public class PurchaseTest {
         paymentPage.enterCardData(cardInfo);
 
         paymentPage.verifyFieldError();
+
+        String actual = DataHelper.getPaymentIdFromOrderEntity();
+        Assertions.assertNull(actual);
     }
 
     @Test
@@ -200,6 +257,9 @@ public class PurchaseTest {
         paymentPage.enterCardData(cardInfo);
 
         paymentPage.verifyFieldError();
+
+        String actual = DataHelper.getPaymentIdFromOrderEntity();
+        Assertions.assertNull(actual);
     }
 
     @Test
@@ -216,6 +276,9 @@ public class PurchaseTest {
         paymentPage.enterCardData(cardInfo);
 
         paymentPage.verifyFieldCardDateExpiredError();
+
+        String actual = DataHelper.getPaymentIdFromOrderEntity();
+        Assertions.assertNull(actual);
     }
 
     @Test
@@ -232,6 +295,9 @@ public class PurchaseTest {
         paymentPage.enterCardData(cardInfo);
 
         paymentPage.verifyFieldCardDateError();
+
+        String actual = DataHelper.getPaymentIdFromOrderEntity();
+        Assertions.assertNull(actual);
     }
 
     @Test
@@ -248,6 +314,9 @@ public class PurchaseTest {
         paymentPage.enterCardData(cardInfo);
 
         paymentPage.verifyFieldCardRequiredField();
+
+        String actual = DataHelper.getPaymentIdFromOrderEntity();
+        Assertions.assertNull(actual);
     }
 
     @Test
@@ -264,6 +333,9 @@ public class PurchaseTest {
         paymentPage.enterCardData(cardInfo);
 
         paymentPage.verifyFieldError();
+
+        String actual = DataHelper.getPaymentIdFromOrderEntity();
+        Assertions.assertNull(actual);
     }
 
     @Test
@@ -280,6 +352,9 @@ public class PurchaseTest {
         paymentPage.enterCardData(cardInfo);
 
         paymentPage.verifyFieldError();
+
+        String actual = DataHelper.getPaymentIdFromOrderEntity();
+        Assertions.assertNull(actual);
     }
 
     @Test
@@ -296,6 +371,9 @@ public class PurchaseTest {
         paymentPage.enterCardData(cardInfo);
 
         paymentPage.verifyFieldError();
+
+        String actual = DataHelper.getPaymentIdFromOrderEntity();
+        Assertions.assertNull(actual);
     }
 
     @Test
@@ -312,6 +390,9 @@ public class PurchaseTest {
         paymentPage.enterCardData(cardInfo);
 
         paymentPage.verifyFieldError();
+
+        String actual = DataHelper.getPaymentIdFromOrderEntity();
+        Assertions.assertNull(actual);
     }
 
     @Test
@@ -328,6 +409,9 @@ public class PurchaseTest {
         paymentPage.enterCardData(cardInfo);
 
         paymentPage.verifyFieldError();
+
+        String actual = DataHelper.getPaymentIdFromOrderEntity();
+        Assertions.assertNull(actual);
     }
 
     @Test
@@ -344,6 +428,9 @@ public class PurchaseTest {
         paymentPage.enterCardData(cardInfo);
 
         paymentPage.verifyFieldError();
+
+        String actual = DataHelper.getPaymentIdFromOrderEntity();
+        Assertions.assertNull(actual);
     }
 
     @Test
@@ -360,6 +447,9 @@ public class PurchaseTest {
         paymentPage.enterCardData(cardInfo);
 
         paymentPage.verifyFieldError();
+
+        String actual = DataHelper.getPaymentIdFromOrderEntity();
+        Assertions.assertNull(actual);
     }
 
     @Test
@@ -376,5 +466,8 @@ public class PurchaseTest {
         paymentPage.enterCardData(cardInfo);
 
         paymentPage.verifyFieldError();
+
+        String actual = DataHelper.getPaymentIdFromOrderEntity();
+        Assertions.assertNull(actual);
     }
 }

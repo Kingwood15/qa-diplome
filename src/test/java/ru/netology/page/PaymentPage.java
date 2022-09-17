@@ -29,7 +29,7 @@ public class PaymentPage {
     final private static SelenideElement fieldRequired = $(byText("Поле обязательно для заполнения"));
 
     //проверка видимости нужных форм
-    public static void verifyBue() {
+    public static void verifyBuy() {
         headingBuy.shouldBe(Condition.visible);
     }
 
@@ -47,7 +47,7 @@ public class PaymentPage {
     }
 
     //ввод данных карты
-    public static void enterCardData(DataHelper.CardInfo info) {
+    public final void enterCardData(DataHelper.CardInfo info) {
         fieldCardNumber.setValue(info.getCardNumber());
         fieldCardMonth.setValue(info.getCardMonth());
         fieldCardYear.setValue(info.getCardYear());
@@ -57,7 +57,7 @@ public class PaymentPage {
     }
 
     //метод очистки полей
-    public static void cleanAllFields() {
+    public final void cleanAllFields() {
         fieldCardNumber.sendKeys(Keys.LEFT_CONTROL + "A");
         fieldCardNumber.sendKeys(Keys.DELETE);
         fieldCardMonth.sendKeys(Keys.LEFT_CONTROL + "A");

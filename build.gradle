@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'io.qameta.allure' version '2.10.0'
 }
 
 group 'ru.netology'
@@ -10,6 +11,13 @@ sourceCompatibility = 11
 // кодировка файлов (если используете русский язык в файлах)
 compileJava.options.encoding = "UTF-8"
 compileTestJava.options.encoding = "UTF-8"
+
+allure {
+    version = '2.19.0'
+    useJUnit5 {
+        version = '2.19.0'
+    }
+}
 
 repositories {
     mavenCentral()
@@ -33,7 +41,7 @@ dependencies {
 
     implementation 'com.github.javafaker:javafaker:1.0.2'
 
-
+    testImplementation 'io.qameta.allure:allure-selenide:2.19.0'
 }
 
 test {

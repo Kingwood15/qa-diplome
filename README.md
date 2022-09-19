@@ -3,6 +3,7 @@
 
 [![Build status](https://ci.appveyor.com/api/projects/status/927lxpr4slyny2r6?svg=true)](https://ci.appveyor.com/project/Kingwood15/qa-diplome)
 
+### [Ссылка на задание](https://github.com/netology-code/qa-diploma)
 
 Для запуска тестов, в системе необходимо иметь установленным IntelliJ IDEA, JDK 11, Docker Desktop.
 

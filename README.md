@@ -3,11 +3,12 @@
 
 [![Build status](https://ci.appveyor.com/api/projects/status/927lxpr4slyny2r6?svg=true)](https://ci.appveyor.com/project/Kingwood15/qa-diplome)
 
-### [Ссылка на задание](https://github.com/netology-code/qa-diploma)
+### [Ссылка на условие задание](https://github.com/netology-code/qa-diploma)
 
 Для запуска тестов, в системе необходимо иметь установленным IntelliJ IDEA, JDK 11, Docker Desktop.
 
-В зависимости от используемой базы данных, необходимо переключить (перекомментировать) в классе **[DataHelper.jar](https://github.com/Kingwood15/qa-diplome/blob/master/src/test/java/ru/netology/data/DataHelper.java) `строки 16, 17`**, а также переключить (перекомментировать) в файле **[application.properties](https://github.com/Kingwood15/qa-diplome/blob/master/application.properties) `строки 3, 4`**.
+По умолчанию используется база данных MySQL.
+Для изменения базы данных, необходимо переключить (перекомментировать) в классе **[DataHelper.jar](https://github.com/Kingwood15/qa-diplome/blob/master/src/test/java/ru/netology/data/DataHelper.java) `строки 16, 17`**, а также переключить (перекомментировать) в файле **[application.properties](https://github.com/Kingwood15/qa-diplome/blob/master/application.properties) `строки 3, 4`**.
 
 Для запуска тестов необходимо:
 1. Запустить gate-simulator и базу данных командой: `docker-compose up` (для запуска в фоновом режиме использовать флаг `-d`)

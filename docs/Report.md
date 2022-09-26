@@ -21,10 +21,14 @@
 ***
 Всего выполнено 46 автоматизированных тест-кейсов.
 
+<image src="/docs/allure report/report page overview.png" alt="allure report page overview">
+
 ## %успешных/не успешных
 ***
 * 35 успешных – что составляет 76 %
 * 11 не успешных – что составляет 24 %
+  
+<image src="/docs/allure report/report page graphs.png" alt="allure report page graphs">
 
 ## Общие рекомендации
 ***
